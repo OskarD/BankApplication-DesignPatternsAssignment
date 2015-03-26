@@ -1,0 +1,4 @@
+//COR
+public class LoanRequest {
+
+}

@@ -1,3 +1,6 @@
+package bank.account;
+
+import bank.Transaction;
 
 public abstract class Account implements Transaction {
     

@@ -1,6 +1,6 @@
 public class AccountObserver{
 
-Account account = new Account();
+Account account ;
 
 public AccountObserver(Account acc){
 this.account = acc;

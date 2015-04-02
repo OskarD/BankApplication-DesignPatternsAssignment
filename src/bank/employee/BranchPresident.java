@@ -1,4 +1,7 @@
-package bank;
+package bank.employee;
+
+import bank.LoanHandler;
+import bank.LoanRequest;
 
 public class BranchPresident extends LoanHandler {
 	
@@ -6,7 +9,6 @@ public class BranchPresident extends LoanHandler {
 
 	@Override
 	public boolean authorize(LoanRequest request) {
-		// TODO Auto-generated method stub
 		double amount = request.getAmount();
         if (amount <= LIMIT) {
             System.out.println(" The Branch President has authorized the Loan Request of: " + request);

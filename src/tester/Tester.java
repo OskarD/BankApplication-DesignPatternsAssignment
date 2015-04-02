@@ -1,9 +1,12 @@
-import bank.*;
+package tester;
+import bank.LoanRequest;
+import bank.employee.BranchManager;
+import bank.employee.BranchPresident;
 
 
 public class Tester {
 	/**
-	 * @todo Write code for testing all parts
+	 * TODO Write code for testing all parts
 	 * @author Oskar
 	 */	
 	 private BranchManager branchManager;

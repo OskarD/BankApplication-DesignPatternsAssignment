@@ -1,60 +1,38 @@
 package bank.account;
-import java.util.HashMap;
 
 
 public class Saving extends Account {
 
-	public Saving() {
-        this.accountNumber = ++uniqueID;
-        this.balance = 0;
-        
-        if (this.list == null) {
-            this.list = new HashMap <String, Double>();
-        }
-    }
-    
-    public Saving(double amount) {
-        this.balance = amount;
-        this.accountNumber = ++uniqueID;
-        
-        if (this.list == null) {
-            this.list = new HashMap<String, Double>();
-        }
-    }
+	public Saving(String ownerName) {
+		super(ownerName);
+	}
 	
-	@Override
-	public void deposit(double amount) {
-		// TODO Auto-generated method stub
-		this.balance += amount;
+	public Saving(String ownerName, double balance) {
+		super(ownerName, balance);
 	}
 
 	@Override
-	public void withdraw(double amount) {
-		// TODO Auto-generated method stub
-		 if (this.balance >= amount) {
-	         this.balance = this.balance - amount;
-	        }        
+	public void deposit(double amount) throws BankAccountException {
+		if(!isAccountOpen())
+			throw new BankAccountException("Account is closed", BankAccountException.ACCOUNT_CLOSED);
+		
+		if(amount < 0 )
+			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
+		
+		setBalance(getBalance() + amount);
 	}
 
 	@Override
-	public Double getBalance() {
-		// TODO Auto-generated method stub
-		 Double newBalance = balance;
-	     return newBalance;
-	}
-
-	@Override
-	public void AccountInfo() {
-		// TODO Auto-generated method stub
-		Double amt = balance;
-        System.out.println("Account Number:\t" + this.accountNumber + "\nAccount Balance: $" + amt);
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		Double amt = balance;
-        String string1 = "Account Number: " + accountNumber + "\tAccount Balance: $" + amt;
-        return string1;
+	public void withdraw(double amount) throws BankAccountException {
+		if(!isAccountOpen())
+			throw new BankAccountException("Account is closed", BankAccountException.ACCOUNT_CLOSED);
+		
+		if(amount < 0 )
+			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
+		
+		if(amount > getBalance())
+			throw new BankAccountException("Insufficient funds", BankAccountException.INSUFFICIENT_FUNDS);
+		
+		setBalance(getBalance() - amount);
 	}
 }

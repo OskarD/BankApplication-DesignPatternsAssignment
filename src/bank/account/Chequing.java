@@ -1,65 +1,39 @@
 package bank.account;
-import java.util.HashMap;
 
 
 public class Chequing extends Account {
 
+	public Chequing(String ownerName) {
+		super(ownerName);
+	}
 	
-	public Chequing() {
+	public Chequing(String ownerName, double balance) {
+		super(ownerName, balance);
+	}
+
+	@Override
+	public void deposit(double amount) throws BankAccountException {
+		if(!isAccountOpen())
+			throw new BankAccountException("Account is closed", BankAccountException.ACCOUNT_CLOSED);
 		
-        this.accountNumber = ++uniqueID;
-        this.balance = 0;
-        
-        if (this.list == null) {
-            this.list = new HashMap<String, Double>();
-        }
-    }
-    
-    public Chequing(double amountt) {
-    	
-        this.balance = amountt;
-        this.accountNumber = ++uniqueID;
-        
-        if (this.list == null) {
-            this.list = new HashMap <String, Double>();
-        }
-    }
-	
-	
-	@Override
-	public void deposit(double amount) {
-		// TODO Auto-generated method stub
-		this.balance += amount;	
+		if(amount < 0 )
+			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
+		
+		setBalance(getBalance() + amount);
 	}
 
 	@Override
-	public void withdraw(double amount) {
-		// TODO Auto-generated method stub
-		if (this.balance >= amount) 
-		{		
-            this.balance = this.balance - amount;
-        } 
+	public void withdraw(double amount) throws BankAccountException {
+		if(!isAccountOpen())
+			throw new BankAccountException("Account is closed", BankAccountException.ACCOUNT_CLOSED);
+		
+		if(amount < 0 )
+			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
+		
+		if(amount > getBalance())
+			throw new BankAccountException("Insufficient funds", BankAccountException.INSUFFICIENT_FUNDS);
+		
+		setBalance(getBalance() - amount);
 	}
 
-	@Override
-	public Double getBalance() {
-		// TODO Auto-generated method stub
-		Double newBalance = balance;
-        return newBalance;
-	}
-
-	@Override
-	public void AccountInfo() {
-		// TODO Auto-generated method stub
-		 double amt = balance;
-	     System.out.println("Account Number:\t" + accountNumber + "\nAccount Balance: $" + amt);
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		 Double amt = balance;
-	     String string2 = "Account Number:\t" + accountNumber + "\nAccount Balance: $" + amt;
-	     return string2;
-	}
 }

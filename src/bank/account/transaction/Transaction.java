@@ -31,6 +31,10 @@ public class Transaction {
 		this.amount = amount;
 	}
 	
+	/**
+	 * Checks if the Transaction has been executed or not
+	 * @return true if Transaction has been successfully executed, false if not
+	 */
 	public boolean wasExecuted() {
 		return executed;
 	}

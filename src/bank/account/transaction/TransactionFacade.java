@@ -1,5 +1,6 @@
 package bank.account.transaction;
 
+import bank.MessageHandler;
 import bank.account.Account;
 
 public class TransactionFacade {
@@ -11,19 +12,19 @@ public class TransactionFacade {
 	 * @return The transaction object
 	 */
 	public static Transaction performTransaction(Account sendingAccount, Account receivingAccount, double amount) {
-		System.out.println("Performing transaction of $" + amount + " from account# " + sendingAccount.getAccountNumber() + " to account# " + receivingAccount.getAccountNumber());
-		System.out.println("--- Advertisement ---");
-		System.out.println("This transaction was brought to you by:");
-		System.out.println(TransactionAd.getAd());
+		MessageHandler.print("Performing transaction of $" + amount + " from account# " + sendingAccount.getAccountNumber() + " to account# " + receivingAccount.getAccountNumber());
+		MessageHandler.print("--- Advertisement ---");
+		MessageHandler.print("This transaction was brought to you by:");
+		MessageHandler.print(TransactionAd.getAd());
 		
 		Transaction transaction = new Transaction(sendingAccount, receivingAccount, amount);
 		
 		try {
 			transaction.execute();
 			
-			System.out.println("Transaction completed");
+			MessageHandler.print("Transaction completed");
 		} catch(Exception e) {
-			System.out.println("Transaction error: " + e.getMessage());
+			MessageHandler.print("Transaction error: " + e.getMessage());
 		}
 		
 		return transaction;

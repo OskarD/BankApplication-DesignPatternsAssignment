@@ -1,7 +1,8 @@
 package bank.employee;
 
-import bank.LoanHandler;
-import bank.LoanRequest;
+import bank.MessageHandler;
+import bank.loan.LoanHandler;
+import bank.loan.LoanRequest;
 
 public class BranchPresident extends LoanHandler {
 	
@@ -11,10 +12,10 @@ public class BranchPresident extends LoanHandler {
 	public boolean authorize(LoanRequest request) {
 		double amount = request.getAmount();
         if (amount <= LIMIT) {
-            System.out.println(" The Branch President has authorized the Loan Request of: " + request);
+            MessageHandler.print(" The Branch President has authorized the Loan Request of: " + request);
             return true;
         } else {
-        System.out.println("Loan Rquest of: " + request +  " couldn't be authorized.\n " + "reason: Amount too large");
+        MessageHandler.print("Loan Rquest of: " + request +  " couldn't be authorized.\n " + "reason: Amount too large");
         return false;
         }
 	}

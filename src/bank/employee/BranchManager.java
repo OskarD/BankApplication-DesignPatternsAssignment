@@ -1,7 +1,8 @@
 package bank.employee;
 
-import bank.LoanHandler;
-import bank.LoanRequest;
+import bank.MessageHandler;
+import bank.loan.LoanHandler;
+import bank.loan.LoanRequest;
 
 public class BranchManager extends LoanHandler {
 	
@@ -11,7 +12,7 @@ public class BranchManager extends LoanHandler {
 	public boolean authorize(LoanRequest request) {
 		 double amount = request.getAmount();
 	        if (amount <= LIMIT) {
-	            System.out.println(" The Branch Manager has authorized the Loan Request of: " + request);
+	            MessageHandler.print(" The Branch Manager has authorized the Loan Request of: " + request);
 	            return true;
 	        } else {
 	            return getNextHandler().authorize(request);

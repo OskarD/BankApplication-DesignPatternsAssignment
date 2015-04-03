@@ -1,4 +1,4 @@
-package bank;
+package bank.loan;
 
 //COR
 public abstract class LoanHandler {

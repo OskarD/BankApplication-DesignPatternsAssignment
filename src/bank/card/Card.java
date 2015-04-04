@@ -1,5 +1,9 @@
 package bank.card;
 
-public interface Card {
-
+public abstract class Card {
+	private String cardNum;
+	
+	public void transaction() {  }
+	
+	/* ToDo: Add Appropriate Method */
 }

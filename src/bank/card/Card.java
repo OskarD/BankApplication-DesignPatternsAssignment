@@ -5,8 +5,7 @@ import java.text.*;
 
 
 public abstract class Card {
-	private String owner;
-	private String cardNum;
+	private String owner, cardNum, cardFace;
 	private Date exp;
 	
 	public Card(String owner) { 
@@ -18,13 +17,21 @@ public abstract class Card {
     public String getOwner() { return this.owner; }
     public void setOwner(String owner) { this.cardNum = owner; }
     
+    public String getCardFace() { 
+    	String s = "";
+    	if(this.cardFace!=null) { s = "\nCustom " + this.cardFace + " design"; }
+    	return s; 
+    }
+    public void setCardFace(String cardFace) { this.cardFace = cardFace; }
+    
     public String getCardNumm() { return this.cardNum; }
     public void setCardNum(String cardNum) { this.cardNum = cardNum; }
     
-    public String getExpDate() {
-    	SimpleDateFormat ft = new SimpleDateFormat("MM-yy"); 
+    public String getExpDateString() {
+    	SimpleDateFormat ft = new SimpleDateFormat("MM/yy"); 
     	return ft.format(this.exp);
     }
+    public Date getExpDate() { return this.exp; }
     public void setExpDate() {
     	// This will automatically be set in Debit (5 years from date of creation)
     	// and Credit (2 years from date of creation).
@@ -47,6 +54,7 @@ public abstract class Card {
     
     @Override
     public String toString(){
-    	return getOwner() + "\n" + getCardNumm() + "\nValid Thru: " + getExpDate() + "\n\n" +  bankInfo();
+    	return getOwner() + "\n" + getCardNumm() + "\nValid Thru: " + getExpDateString() + getCardFace() 
+    			+  "\n\n" +  bankInfo();
     }
 }

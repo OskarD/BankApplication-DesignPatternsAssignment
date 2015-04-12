@@ -13,7 +13,7 @@ public abstract class Account {
 	public static final double TRANS_FEE_NORMAL = 2.00;
 	public static final double TRANS_FEE_OVERDRAW = 5.00;
 	
-	private static int uniqueAccountNumber = 0;
+	private static int uniqueAccountNumber = 100000;
 	private int accountNumber;
 	
 	private LinkedList<Card> cards = new LinkedList<Card>();

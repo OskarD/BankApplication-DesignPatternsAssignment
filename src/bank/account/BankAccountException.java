@@ -6,7 +6,8 @@ public class BankAccountException extends Exception {
 	public static final int
 		INSUFFICIENT_FUNDS = 1,
 		ACCOUNT_CLOSED = 2,
-		INVALID_AMOUNT = 3;
+		INVALID_AMOUNT = 3,
+		OVERDRAW_LIMIT_EXCEEDED = 4;
 	
 	private final int
 		code;

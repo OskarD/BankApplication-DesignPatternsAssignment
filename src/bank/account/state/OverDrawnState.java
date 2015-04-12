@@ -1,61 +1,54 @@
+package bank.account.state;
+
+import bank.MessageHandler;
+import bank.account.Account;
+import bank.account.BankAccountException;
+
 public class OverDrawnState extends State {
+	private static final String OVERDRAWN_MESSAGE = "A transaction fee of $" + Account.TRANS_FEE_OVERDRAW + " was charged due to account status (Overdrawn)";
 
-  
+	public OverDrawnState(Account account) {
+		super(account);
+		alertAccountHolder();
+	}
 
-  public OverDrawnState(BusinessAccount account) {
-    super(account);
-    sendMailToAccountHolder();
-  }
-  
-  public void sendMailToAccountHolder() {
-    System.out.println ("Attention: Your Account is Overdrawn");
-  }
-  
-  public OverDrawnState(State source) {
-    super(source);
-    sendMailToAccountHolder();
-  }
+	public OverDrawnState(State source) {
+		super(source);
+		alertAccountHolder();
+	}
 
-  public State transitionState() {
-    double balance = getContext().getBalance();
-    if (balance >= BusinessAccount.MIN_BALANCE)
-      getContext().setState(
-        new NoTransactionFeeState(this));
-    else if (balance >= 0)
-      getContext().setState(new TransactionFeeState(this));
+	public void alertAccountHolder() {
+		MessageHandler.print("Attention: Your Account is Overdrawn");
+	}
 
+	public State transitionState() {
+		double balance = getContext().getBalance();
+		if (balance >= Account.MIN_BALANCE)
+			getContext().setState(new NoTransactionFeeState(this));
+		else if (balance >= 0)
+			getContext().setState(new TransactionFeeState(this));
 
-    return getContext().getState();
-  }
+		return getContext().getState();
+	}
 
-  public boolean deposit(double amount) {
-    double balance = getContext().getBalance();
+	public void deposit(double amount) {
+		double balance = getContext().getBalance();
 
-    getContext().setBalance(balance -
-        BusinessAccount.TRANS_FEE_OVERDRAW);
-    System.out.println("Transaction Fee was charged " +
-                       "due to account status(Overdrawn)");
-    return super.deposit(amount);
-  }
+		getContext().setBalance(balance - Account.TRANS_FEE_OVERDRAW);
+		MessageHandler.print(OVERDRAWN_MESSAGE);
+		super.deposit(amount);
+	}
 
-  public boolean withdraw(double amount) {
-    double balance = getContext().getBalance();
+	public void withdraw(double amount) throws BankAccountException {
+		double balance = getContext().getBalance();
 
-    if ((balance - BusinessAccount.TRANS_FEE_OVERDRAW -
-         amount) > BusinessAccount.OVERDRAW_LIMIT) {
+		if ((balance - Account.TRANS_FEE_OVERDRAW -	amount) > Account.OVERDRAW_LIMIT)
+			throw new BankAccountException("Overdraw limit has been exceeded", BankAccountException.OVERDRAW_LIMIT_EXCEEDED);
 
-      getContext().setBalance(balance -
-          BusinessAccount.TRANS_FEE_OVERDRAW);
-      System.out.println(
-        "Transaction Fee was charged due to " +
-        "account status(Overdrawn)");
-      return super.withdraw(amount);
-
-    } else {
-      System.out.println(
-        BusinessAccount.ERR_OVERDRAW_LIMIT_EXCEED);
-      return false;
-    }
-  }
+		getContext().setBalance(balance - Account.TRANS_FEE_OVERDRAW);
+		MessageHandler.print(OVERDRAWN_MESSAGE);
+		
+		super.withdraw(amount);
+	}
 
 }

@@ -1,51 +1,48 @@
+package bank.account.state;
+
 import bank.account.Account;
+import bank.account.BankAccountException;
 
-public class State {
-  private Account context;
 
-  
-   public State(Account account) {
-    setContext(account);
-  }
+public abstract class State {
+	private Account context;
 
-  public State(State source) {
-    setContext(source.getContext());
-  }
-  
-  public Account getContext() {
-    return context;
-  }
+	public State(Account account) {
+		setContext(account);
+	}
 
-  public void setContext(Account newAccount) {
-    context = newAccount;
-  }
+	public State(State source) {
+		setContext(source.getContext());
+	}
 
-  public State transitionState() {
-    return null;
-  }
+	public Account getContext() {
+		return context;
+	}
 
- 
+	public void setContext(Account newAccount) {
+		context = newAccount;
+	}
 
-  public static State InitialState(Account account) {
-    return new NoTransactionFeeState(account);
-  }
-  public boolean deposit(double amount) {
-    double balance = getContext().getBalance();
+	public State transitionState() {
+		return null;
+	}
 
-    getContext().setBalance(balance + amount);
-    transitionState();
-    System.out.println("An amount " + amount +
-                       " is deposited ");
-    return true;
-  }
-  public boolean withdraw(double amount) {
-    double balance = getContext().getBalance();
+	public static State InitialState(Account account) {
+		return new NoTransactionFeeState(account);
+	}
+	
+	public void deposit(double amount) {
+		double balance = getContext().getBalance();
 
-    getContext().setBalance(balance - amount);
-    transitionState();
-    System.out.println("An amount " + amount +
-                       " is withdrawn ");
-    return true;
-  }
+		getContext().setBalance(balance + amount);
+		transitionState();
+	}
+	
+	public void withdraw(double amount) throws BankAccountException {
+		double balance = getContext().getBalance();
+
+		getContext().setBalance(balance - amount);
+		transitionState();
+	}
 
 }

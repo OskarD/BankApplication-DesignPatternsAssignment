@@ -24,11 +24,11 @@ public class CreateAccount {
 	 
 	 public Account createAcc(String accType) {
 	        if (accType.equalsIgnoreCase("Savings")) {
-	            acc = new Saving();
+	            acc = new SavingAccount();
 	            MessageHandler.print("A Savings account has been created.");
 	        }   
 	        else if  (accType.equalsIgnoreCase("Chequing")) {
-	        	acc = new Chequing();
+	        	acc = new ChequingAccount();
 	            MessageHandler.print("A Chequing account has been created.");
 	        }       
 	        

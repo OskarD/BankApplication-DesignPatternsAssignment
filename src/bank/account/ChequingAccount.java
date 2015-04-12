@@ -1,13 +1,13 @@
 package bank.account;
 
 
-public class Chequing extends Account {
+public class ChequingAccount extends Account {
 
-	public Chequing(String ownerName) {
+	public ChequingAccount(String ownerName) {
 		super(ownerName);
 	}
 	
-	public Chequing(String ownerName, double balance) {
+	public ChequingAccount(String ownerName, double balance) {
 		super(ownerName, balance);
 	}
 

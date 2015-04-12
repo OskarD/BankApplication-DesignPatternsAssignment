@@ -3,17 +3,25 @@ package bank.account;
 import java.util.LinkedList;
 import java.util.Map;
 
+import bank.account.state.State;
 import bank.card.Card;
 
 public abstract class Account {
+	public static final double MIN_BALANCE = 2000.00;
+	public static final double OVERDRAW_LIMIT = -1000.00;
+
+	public static final double TRANS_FEE_NORMAL = 2.00;
+	public static final double TRANS_FEE_OVERDRAW = 5.00;
+	
 	private static int uniqueAccountNumber = 0;
 	private int accountNumber;
 	
 	private LinkedList<Card> cards = new LinkedList<Card>();
-	private boolean accountOpen = true;
+	private boolean accountOpen = true; // TODO replace with state
 	private double balance;
 	private String ownerName;
-	
+	private State state;
+
 	/**
 	 * Constructor
 	 * @param ownerName Name of the account owner
@@ -21,6 +29,7 @@ public abstract class Account {
 	public Account(String ownerName) {
 		this.ownerName = ownerName;
 		setUniqueAccountNumber();
+		setState(State.InitialState(this));
 	}
 	
 	/**
@@ -29,9 +38,8 @@ public abstract class Account {
 	 * @param balance Initial account balance
 	 */
 	public Account(String ownerName, double balance) {
-		this.ownerName = ownerName;
+		this(ownerName);
 		setBalance(balance);
-		setUniqueAccountNumber();
 	}
 
     private void setUniqueAccountNumber() {
@@ -78,13 +86,26 @@ public abstract class Account {
 		return this.balance;
 	}
 	
+	public final State getState() {
+		return state;
+	}
+
+	public final void setState(State state) {
+		this.state = state;
+	}
+	
 	/**
      * Deposits (Adds) money to the account balance
      * @param amount The amount of dollars to be deposited
      * @throws BankAccountException if the account is closed
      * @throws BankAccountException if given an invalid amount
      */
-    public abstract void deposit(double amount) throws BankAccountException;
+    public void deposit(double amount) throws BankAccountException {
+    	if(amount <= 0 )
+			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
+		
+    	getState().deposit(amount);
+    }
     
     /**
      * Withdraws (Adds) money to the account balance

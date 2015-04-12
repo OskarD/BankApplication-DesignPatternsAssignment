@@ -1,8 +1,8 @@
 package bank.tester;
 import bank.MessageHandler;
 import bank.account.Account;
-import bank.account.Chequing;
-import bank.account.Saving;
+import bank.account.ChequingAccount;
+import bank.account.SavingAccount;
 import bank.account.transaction.Transaction;
 import bank.account.transaction.TransactionFacade;
 import bank.employee.BranchManager;
@@ -38,8 +38,8 @@ public class Tester {
 	 public static void demoTransactions() {
 		 MessageHandler.print("---------- Demonstrating transactions\n");
 		 Account 
-		 	account1 = new Chequing("Mister Master", 1_000_000),
-		 	account2 = new Saving("Poor Johnny", 15);
+		 	account1 = new ChequingAccount("Mister Master", 1_000_000),
+		 	account2 = new SavingAccount("Poor Johnny", 15);
 
 		 MessageHandler.print("Demonstrating approved transaction:");
 		 Transaction transaction = TransactionFacade.performTransaction(account1, account2, 9.99);

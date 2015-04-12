@@ -12,7 +12,7 @@ public class BranchPresident extends LoanHandler {
 	public boolean authorize(LoanRequest request) {
 		double amount = request.getAmount();
         if (amount <= LIMIT) {
-            MessageHandler.print(" The Branch President has authorized the Loan Request of: " + request);
+            MessageHandler.print(" The Branch President has authorized the Loan Request of: " + request + amount);
             return true;
         } else {
         MessageHandler.print("Loan Rquest of: " + request +  " couldn't be authorized.\n " + "reason: Amount too large");

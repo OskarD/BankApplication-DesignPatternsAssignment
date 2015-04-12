@@ -113,7 +113,12 @@ public abstract class Account {
      * @throws BankAccountException if the account is closed
      * @throws BankAccountException if given an invalid amount
      */
-    public abstract void withdraw(double amount) throws BankAccountException;
+    public void withdraw(double amount) throws BankAccountException {
+    	if(amount <= 0)
+			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
+		
+    	getState().deposit(amount);
+    }
     
     @Override
     public String toString() {

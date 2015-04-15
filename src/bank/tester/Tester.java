@@ -17,14 +17,15 @@ public class Tester {
 	 /**
 	  * Demonstrates the abilities of our system
 	  * @param args
+	 * @throws Exception 
 	  */
-	 public static void main(String[] args) {
+	 public static void main(String[] args) throws Exception {
 		 MessageHandler.print("[[[[[ Demonstrating system functionality ]]]]]\n\n");
 		 demoLoanRequest();
 		 demoTransactions();
 	 }
 	 
-	 public static void demoLoanRequest() {
+	 public static void demoLoanRequest() throws Exception {
 		 MessageHandler.print("---------- Demonstrating loan requests\n");
 		 BranchManager branchManager = new BranchManager();
 		 BranchPresident branchpresident = new BranchPresident();

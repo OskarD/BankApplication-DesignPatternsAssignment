@@ -117,7 +117,7 @@ public abstract class Account {
     	if(amount <= 0)
 			throw new BankAccountException("Invalid amount", BankAccountException.INVALID_AMOUNT);
 		
-    	getState().deposit(amount);
+    	getState().withdraw(amount);
     }
     
     @Override

@@ -11,7 +11,7 @@ public class BranchPresidentTest {
 	@Test
 	public void test() {
 		BranchPresident bP = new BranchPresident();
-		LoanRequest request = new LoanRequest("test amount $", 1000);
+		LoanRequest request = new LoanRequest("test amount $", 100000);
 		assertTrue("this boolean is incorrect", bP.authorize(request));
 	}
 

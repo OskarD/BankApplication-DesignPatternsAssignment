@@ -3,6 +3,11 @@ package bank.account.transaction;
 import bank.MessageHandler;
 import bank.account.Account;
 
+/**
+ * Facade pattern used here to simplify transactions to any of the accounts, without worrying what type of account
+ * it may be.
+ *
+ */
 public class TransactionFacade {
 	/**
 	 * Performs a transaction after printing an ad

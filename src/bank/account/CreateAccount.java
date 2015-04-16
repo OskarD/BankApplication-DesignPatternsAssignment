@@ -2,7 +2,11 @@ package bank.account;
 
 import bank.MessageHandler;
 
-
+/**
+ * Using the Singleton pattern, we make sure that there is only one instance of the CreateCard class instantiated.
+ * We do this because this one object will be able to create as many cards as we have to create, for any client.
+ *
+ */
 public class CreateAccount {
 
 	public static Account createAcc(String accType, String ownerName) throws Exception {

@@ -6,6 +6,12 @@ import java.util.Map;
 import bank.account.state.State;
 import bank.card.Card;
 
+/**
+ *  Using the Template pattern for the Account class, we can make sure that any parameters that need to be used for
+ *  any type of account are not duplicated in multiple sub classes. Minimum balances and Fees can apply to any
+ *  account, so we make sure not to duplicate these fields for each individual account type.
+ *
+ */
 public abstract class Account {
 	public static final double MIN_BALANCE = 2000.00;
 	public static final double OVERDRAW_LIMIT = -1000.00;

@@ -3,7 +3,11 @@ package bank.account.state;
 import bank.account.Account;
 import bank.account.BankAccountException;
 
-
+/**
+ * We used a state pattern for this class because certain transactions may require additional fees. The state pattern
+ * allows us to set the context of the transaction and apply any fees that may be related to that account type
+ *
+ */
 public abstract class State {
 	private Account context;
 

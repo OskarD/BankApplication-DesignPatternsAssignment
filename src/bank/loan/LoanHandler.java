@@ -1,6 +1,11 @@
 package bank.loan;
 
-//COR
+/**
+ * Using the Chain of Responsibility pattern, we can pass a loan through the Manager, to the President
+ * if his authorization is necessary on a certain loan. The nextHandler will pass the loan on if it is out of the
+ * Branch Manager's range.
+ *
+ */
 public abstract class LoanHandler {
 
 	private LoanHandler nextHandler;

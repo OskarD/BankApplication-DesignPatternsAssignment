@@ -2,11 +2,13 @@ package bank.card;
 
 import java.util.*;
 import java.text.*;
-	/*
-	 * Abstract class for car objects
-	 * Creates all information common to Credit and Debit cards
-	 */
 
+/**
+ * Using the Flyweight pattern, we make sure that any information that will be on any type of card, whether it be
+ * a Debit card, or a Credit card is not duplicated and memory wasted. Things like owner name, and expiration date
+ * will be on all cards, therefore do not need to be in each individual sub class.
+ *
+ */
 public abstract class Card {
 	private String owner, cardFace;
 	private static int nextnum = 0000001;

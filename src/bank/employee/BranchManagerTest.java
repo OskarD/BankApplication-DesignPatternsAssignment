@@ -11,7 +11,7 @@ public class BranchManagerTest {
 	@Test
 	public void test() {
 		BranchManager bM = new BranchManager();
-		LoanRequest request = new LoanRequest("test amount $", 9000);
+		LoanRequest request = new LoanRequest("test amount $", 7000);
 		try {
 			assertTrue("this boolean is incorrect", bM.authorize(request));
 		} catch (Exception e) {

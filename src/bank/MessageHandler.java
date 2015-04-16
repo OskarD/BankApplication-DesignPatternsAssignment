@@ -11,4 +11,8 @@ public class MessageHandler {
 		// This may be expanded or changed in the future
 		System.out.println(message);
 	}
+	
+	public static void print(double d) {
+		print(Double.toString(d));
+	}
 }

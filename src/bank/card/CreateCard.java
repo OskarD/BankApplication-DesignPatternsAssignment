@@ -19,7 +19,7 @@ public class CreateCard {
 	        return createCardInst;
 	}
 	
-	public Card createCard(String cardType, String owner) {
+	public Card createCard(String cardType, String owner) throws Exception {
         if (cardType.equalsIgnoreCase("Debit")) {
         	card = new DebitCard(owner);
             MessageHandler.print("A Debit Card has been created.");
@@ -27,8 +27,9 @@ public class CreateCard {
         else if  (cardType.equalsIgnoreCase("Credit")) {
         	card = new CreditCard(owner);
             MessageHandler.print("A Credit Card has been created.");
-        }       
-        
+        }else{
+			throw new Exception("Invalid type of card provided");    
+        }
         return card;
     }
 }

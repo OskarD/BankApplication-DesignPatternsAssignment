@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="bank.account.SavingAccount" project="Design Patterns Assignment" 
     file="/Design Patterns Assignment/src/bank/account/SavingAccount.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="578" y="391"/>    
+    <position height="-1" width="-1" x="603" y="389"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -47,29 +47,29 @@
     </display>  
   </class>  
   <dependency id="6">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <generalization id="7">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <dependency id="8">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="9">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="3"/>    
+  <dependency id="7">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <dependency id="11">    
+  <dependency id="9">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="10">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

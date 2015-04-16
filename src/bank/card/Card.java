@@ -2,20 +2,28 @@ package bank.card;
 
 import java.util.*;
 import java.text.*;
-	
+	/*
+	 * Abstract class for car objects
+	 * Creates all information common to Credit and Debit cards
+	 */
 
 public abstract class Card {
-	private String owner, cardNum, cardFace;
+	private String owner, cardFace;
+	private static int nextnum = 0000001;
+	private int cardnum;
 	private Date exp;
 	
 	public Card(String owner) { 
 		setOwner(owner);
+		this.cardnum = this.nextnum++;
 	}
 	
 	public void transaction() {  }
     
     public String getOwner() { return this.owner; }
-    public void setOwner(String owner) { this.cardNum = owner; }
+    public void setOwner(String owner) { this.owner = owner; }
+    
+    public int getCardNum() { return this.cardnum; }
     
     public String getCardFace() { 
     	String s = "";
@@ -23,9 +31,6 @@ public abstract class Card {
     	return s; 
     }
     public void setCardFace(String cardFace) { this.cardFace = cardFace; }
-    
-    public String getCardNumm() { return this.cardNum; }
-    public void setCardNum(String cardNum) { this.cardNum = cardNum; }
     
     public String getExpDateString() {
     	SimpleDateFormat ft = new SimpleDateFormat("MM/yy"); 
@@ -38,7 +43,7 @@ public abstract class Card {
     }
 	
 	
-	/* ToDo: Add Appropriate Method */
+	/* Static method containing information about the Bank that will appear on all cards */
 
 	public static String bankInfo(){
     	String bankName = "Our Bank";
@@ -54,7 +59,7 @@ public abstract class Card {
     
     @Override
     public String toString(){
-    	return getOwner() + "\n" + getCardNumm() + "\nValid Thru: " + getExpDateString() + getCardFace() 
+    	return getOwner() + "\n" + getCardNum() + "\nValid Thru: " + getExpDateString() + getCardFace() 
     			+  "\n\n" +  bankInfo();
     }
 }

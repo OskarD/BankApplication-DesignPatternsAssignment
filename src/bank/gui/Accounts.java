@@ -19,6 +19,10 @@ import bank.account.Account;
 import bank.account.BankAccountException;
 import bank.card.Card;
 import bank.card.CreateCard;
+import bank.employee.BranchManager;
+import bank.employee.BranchPresident;
+import bank.loan.LoanHandler;
+import bank.loan.LoanRequest;
 
 public class Accounts {
 
@@ -98,8 +102,34 @@ public class Accounts {
 		btnTransfer.addActionListener(btnTransferListener);
 		frame.getContentPane().add(btnTransfer, "cell 2 1");
 		
+		JButton btnRequestLoan = new JButton("Request Loan");
+		btnRequestLoan.addActionListener(btnRequestLoanListener);
+		frame.getContentPane().add(btnRequestLoan, "cell 2 1");
+		
 		frame.setVisible(true);
 	}
+	
+	private ActionListener btnRequestLoanListener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if(list.isSelectionEmpty() == false) {
+				double amount = Double.parseDouble( JOptionPane.showInputDialog(frame, "Please specify the amount you want to request a loan for") );
+				
+				LoanRequest request = new LoanRequest("Requested loan", amount);
+				BranchManager bM = new BranchManager();
+				BranchPresident bP = new BranchPresident();
+				bM.setNextHandler(bP);
+				
+				try {
+					bM.authorize(request);
+					getSelectedAccount().deposit(amount);
+					refreshListModel();
+					JOptionPane.showMessageDialog(frame, "The loan has been approved, and the money deposited");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(frame, e1.getMessage());
+				}
+			}
+		}
+	};
 	
 	private ActionListener btnTransferListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {

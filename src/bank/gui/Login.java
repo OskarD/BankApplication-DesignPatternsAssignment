@@ -10,8 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import bank.user.User;
-
 public class Login {
 
 	private JFrame frmLogin;

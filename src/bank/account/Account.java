@@ -142,5 +142,7 @@ public abstract class Account {
     	
     	return output;
     }
+    
+    public abstract String getType();
         
 }

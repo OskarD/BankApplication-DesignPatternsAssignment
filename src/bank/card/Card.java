@@ -45,7 +45,7 @@ public abstract class Card {
     }
 	
 	
-	/* Static method containing information about the Bank that will appear on all cards */
+	/* Flyweight pattern: Static method containing information about the Bank that will appear on all cards */
 
 	public static String bankInfo(){
     	String bankName = "Our Bank";
@@ -58,6 +58,8 @@ public abstract class Card {
     	return bankName + "\n" + assress + "\n" + city + ",  " + prov 
         		+ "\n" + post + "\nFor Customer Support Call: " + contactNum;
     }
+	
+	public abstract String getType();
     
     @Override
     public String toString(){

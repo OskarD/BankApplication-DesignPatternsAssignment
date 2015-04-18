@@ -1,22 +1,24 @@
 package bank.gui;
 
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import net.miginfocom.swing.MigLayout;
 import bank.account.Account;
-import bank.user.User;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
+import bank.account.BankAccountException;
+import bank.card.Card;
+import bank.card.CreateCard;
 
 public class Accounts {
 
@@ -24,6 +26,14 @@ public class Accounts {
 	
 	private User
 		user;
+	
+	private JList
+		list;
+	
+	private DefaultListModel
+		listModel;
+	
+	private JTextPane txtAccountInfo;
 
 	/**
 	 * Create the application.
@@ -39,16 +49,13 @@ public class Accounts {
 	 */
 	private void initialize() {
 
-		DefaultListModel listModel = new DefaultListModel();
+		listModel = new DefaultListModel();
 		
-		for(Account account : user.getAccounts()) {
-			
-			listModel.addElement(Integer.toString(account.getAccountNumber()));
-		}
+		refreshListModel();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		frame.setTitle(this.user.getUsername() + "'s Home");
 		frame.getContentPane().setLayout(new MigLayout("", "[61px,grow][93px,grow][99px]", "[23px][grow]"));
@@ -74,22 +81,115 @@ public class Accounts {
 		
 		JTextPane txtAccountInfo = new JTextPane();
 		
-		JList list = new JList(listModel);
-		list.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				// TODO Show more info about the account
-				txtAccountInfo.setText("Account type\n" + Account.class.getName());
-			}
-		});
+		list = new JList(listModel);
+		list.addListSelectionListener(listSelectionListener);
 		frame.getContentPane().add(list, "cell 0 1,grow");
 		
 		
 		frame.getContentPane().add(txtAccountInfo, "cell 1 1,grow");
 		
-		JButton btnDoSomething = new JButton("Do Something");
-		frame.getContentPane().add(btnDoSomething, "cell 2 1");
+		JButton btnAddCard = new JButton("Add Card");
+		btnAddCard.addActionListener(btnAddCardListener);
+		frame.getContentPane().add(btnAddCard, "flowy,cell 2 1");
+		
+		JButton btnWithdraw = new JButton("Withdraw");
+		btnWithdraw.addActionListener(btnWithdrawListener);
+		frame.getContentPane().add(btnWithdraw, "cell 2 1");
+		
+		JButton btnDeposit = new JButton("Deposit");
+		btnDeposit.addActionListener(btnDepositListener);
+		frame.getContentPane().add(btnDeposit, "cell 2 1");
 		
 		
+	}
+	
+	private ActionListener btnDepositListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(list.isSelectionEmpty() == false) {
+				double amount = Double.parseDouble( JOptionPane.showInputDialog(frame, "Please specify the amount you want to deposit") );
+				try {
+					getSelectedAccount().withdraw(amount);
+					JOptionPane.showMessageDialog(frame, "Deposit completed.");
+				} catch (BankAccountException e1) {
+					JOptionPane.showMessageDialog(frame, e1.getMessage());
+				}
+			}
+		}
+		
+	};
+	
+	private ActionListener btnWithdrawListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(list.isSelectionEmpty() == false) {
+				double amount = Double.parseDouble( JOptionPane.showInputDialog(frame, "Please specify the amount you want to withdraw") );
+				try {
+					getSelectedAccount().withdraw(amount);
+					JOptionPane.showMessageDialog(frame, "Withdrawal completed.");
+				} catch (BankAccountException e1) {
+					JOptionPane.showMessageDialog(frame, e1.getMessage());
+				}
+			}
+		}
+		
+	};
+	
+	private ListSelectionListener listSelectionListener = new ListSelectionListener() {
+
+		@Override
+		public void valueChanged(ListSelectionEvent arg0) {
+			Account selectedAccount = getSelectedAccount();
+			
+			String accountInfo = "Account type\n" + selectedAccount.getType() + " Account\n\nCards:\n";
+			
+			if(selectedAccount.getCards().size() == 0)
+				accountInfo += "None\n";
+			else {
+				for(Card card : selectedAccount.getCards()) {
+					accountInfo += card.getType() + "\n";
+				}
+			}
+			
+			accountInfo += "\nBalance\n" + selectedAccount.getBalance();
+			
+			txtAccountInfo.setText(accountInfo);
+		}
+		
+	};
+	
+	private ActionListener btnAddCardListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(list.isSelectionEmpty() == false) {
+				AddCard window = new AddCard(user, getSelectedAccount());
+				frame.setVisible(false);
+				frame.dispose(); 
+			}
+		}
+		
+	};
+	
+	private Account getSelectedAccount() {
+		if(list.isSelectionEmpty() == false) {
+			for(Account account : user.getAccounts()) {
+				if(account.getAccountNumber() == Integer.parseInt( (String) list.getSelectedValue() )) {
+					return account;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	private void refreshListModel() {
+		for(Account account : user.getAccounts()) {
+			
+			listModel.addElement(Integer.toString(account.getAccountNumber()));
+		}
 	}
 
 }

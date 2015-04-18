@@ -1,4 +1,4 @@
-package bank.user;
+package bank.gui;
 
 import java.util.ArrayList;
 

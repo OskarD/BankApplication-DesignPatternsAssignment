@@ -2,8 +2,6 @@ package bank.gui;
 
 import java.util.ArrayList;
 
-import bank.user.User;
-
 public class Environment {
 	
 	private static ArrayList<User> users = new ArrayList<>();

@@ -12,7 +12,6 @@ import javax.swing.JList;
 import net.miginfocom.swing.MigLayout;
 import bank.account.Account;
 import bank.account.CreateAccount;
-import bank.user.User;
 
 public class NewAccount {
 	
@@ -41,7 +40,7 @@ public class NewAccount {
 		frmAddAccount = new JFrame();
 		frmAddAccount.setTitle("Add Account");
 		frmAddAccount.setBounds(100, 100, 450, 300);
-		frmAddAccount.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAddAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAddAccount.getContentPane().setLayout(new MigLayout("", "[grow][]", "[][grow]"));
 		
 		JLabel lblAccountType = new JLabel("Please select an account type");
@@ -56,6 +55,7 @@ public class NewAccount {
 				if(list.getSelectedValue() != null) {
 					try {
 						Account newAccount = CreateAccount.createAcc((String) list.getSelectedValue(), user.getUsername());
+						newAccount.setBalance(1000.0);
 						user.addAccount(newAccount);
 						//PopupBox box = new PopupBox("Added account #" + newAccount.getAccountNumber() + " to your account");
 						Accounts frame = new Accounts(user);

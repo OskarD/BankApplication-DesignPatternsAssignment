@@ -19,4 +19,9 @@ public class DebitCard extends Card{
 		getExpDate().setYear(c.YEAR);
     }
 
+	@Override
+	public String getType() {
+		return "Debit Card";
+	}
+
 }

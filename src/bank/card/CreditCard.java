@@ -18,4 +18,9 @@ public class CreditCard extends Card{
 		getExpDate().setYear(c.YEAR);
     }
 
+	@Override
+	public String getType() {
+		return "Credit Card";
+	}
+
 }

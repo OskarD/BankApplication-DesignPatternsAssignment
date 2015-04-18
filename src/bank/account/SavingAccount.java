@@ -19,4 +19,10 @@ public class SavingAccount extends Account {
 		
 		super.withdraw(amount + 2.0);
 	}
+
+	@Override
+	public String getType() {
+		return "Saving";
+	}
+	
 }

@@ -11,4 +11,7 @@ public class ChequingAccount extends Account {
 		super(ownerName, amount);
 	}
 
+	@Override
+	public String getAccType() { return "Chequing Account"; }
+
 }

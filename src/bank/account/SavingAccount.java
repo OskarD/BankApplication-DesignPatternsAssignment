@@ -12,6 +12,9 @@ public class SavingAccount extends Account {
 	public SavingAccount(String ownerName, double amount) {
 		super(ownerName, amount);
 	}
+
+	@Override
+	public String getAccType() { return "Savings Account"; }
 	
 	@Override
 	public void withdraw(double amount) throws BankAccountException {

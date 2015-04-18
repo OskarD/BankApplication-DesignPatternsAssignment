@@ -95,6 +95,8 @@ public abstract class Account {
 	public final State getState() {
 		return state;
 	}
+	
+	public String getAccType() { return null; }
 
 	public final void setState(State state) {
 		this.state = state;

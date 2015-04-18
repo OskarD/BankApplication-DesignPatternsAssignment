@@ -78,7 +78,6 @@ public class Accounts {
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				// TODO Show more info about the account
-				txtAccountInfo.setText("Account type\n" + user.getAccounts().get(list.getSelectedIndex()).getAccType());
 			}
 		});
 		frame.getContentPane().add(list, "cell 0 1,grow");

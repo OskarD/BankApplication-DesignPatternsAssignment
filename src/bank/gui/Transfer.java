@@ -55,7 +55,7 @@ public class Transfer {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 304, 162);
+		frame.setBounds(100, 100, 474, 162);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		frame.setTitle("Transfering from account #" + account.getAccountNumber());

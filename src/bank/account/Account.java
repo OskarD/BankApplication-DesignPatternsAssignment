@@ -12,7 +12,7 @@ import bank.card.Card;
  *  account, so we make sure not to duplicate these fields for each individual account type.
  *
  */
-public abstract class Account {
+public abstract class Account implements Comparable<Account> {
 	public static final double MIN_BALANCE = 2000.00;
 	public static final double OVERDRAW_LIMIT = -1000.00;
 
@@ -144,5 +144,11 @@ public abstract class Account {
     }
     
     public abstract String getType();
+    
+    @Override
+    public int compareTo(Account compareAccount) {
+        int comparenumber=((Account)compareAccount).getAccountNumber();
+        return this.accountNumber-comparenumber;
+    }
         
 }

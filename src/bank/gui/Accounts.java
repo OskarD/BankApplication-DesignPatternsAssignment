@@ -33,15 +33,15 @@ public class Accounts {
 	private DefaultListModel
 		listModel;
 	
-	private JTextPane txtAccountInfo;
+	private JTextPane 
+		txtAccountInfo = new JTextPane();
 
 	/**
 	 * Create the application.
 	 */
 	public Accounts(User user) {
 		this.user = user;
-		initialize();
-		frame.setVisible(true);
+		initialize();		
 	}
 
 	/**
@@ -64,13 +64,7 @@ public class Accounts {
 		frame.getContentPane().add(label, "flowx,cell 0 0,alignx left,aligny bottom");
 		
 		JButton btnAddAccount = new JButton("Add Account");
-		btnAddAccount.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				NewAccount window = new NewAccount(user);
-				frame.setVisible(false); 
-				frame.dispose(); 
-			}
-		});
+		btnAddAccount.addActionListener(btnAddAccountListener);
 		frame.getContentPane().add(btnAddAccount, "cell 0 0,alignx left,aligny top");
 		
 		JLabel lblAccountInfo = new JLabel("Account Info");
@@ -79,7 +73,7 @@ public class Accounts {
 		JLabel lblAccountActions = new JLabel("Account Actions");
 		frame.getContentPane().add(lblAccountActions, "cell 2 0");
 		
-		JTextPane txtAccountInfo = new JTextPane();
+		//JTextPane txtAccountInfo;
 		
 		list = new JList(listModel);
 		list.addListSelectionListener(listSelectionListener);
@@ -100,7 +94,7 @@ public class Accounts {
 		btnDeposit.addActionListener(btnDepositListener);
 		frame.getContentPane().add(btnDeposit, "cell 2 1");
 		
-		
+		frame.setVisible(true);
 	}
 	
 	private ActionListener btnDepositListener = new ActionListener() {
@@ -110,8 +104,9 @@ public class Accounts {
 			if(list.isSelectionEmpty() == false) {
 				double amount = Double.parseDouble( JOptionPane.showInputDialog(frame, "Please specify the amount you want to deposit") );
 				try {
-					getSelectedAccount().withdraw(amount);
+					getSelectedAccount().deposit(amount);
 					JOptionPane.showMessageDialog(frame, "Deposit completed.");
+					refreshListModel();
 				} catch (BankAccountException e1) {
 					JOptionPane.showMessageDialog(frame, e1.getMessage());
 				}
@@ -129,6 +124,7 @@ public class Accounts {
 				try {
 					getSelectedAccount().withdraw(amount);
 					JOptionPane.showMessageDialog(frame, "Withdrawal completed.");
+					refreshListModel();
 				} catch (BankAccountException e1) {
 					JOptionPane.showMessageDialog(frame, e1.getMessage());
 				}
@@ -141,21 +137,24 @@ public class Accounts {
 
 		@Override
 		public void valueChanged(ListSelectionEvent arg0) {
-			Account selectedAccount = getSelectedAccount();
-			
-			String accountInfo = "Account type\n" + selectedAccount.getType() + " Account\n\nCards:\n";
-			
-			if(selectedAccount.getCards().size() == 0)
-				accountInfo += "None\n";
-			else {
-				for(Card card : selectedAccount.getCards()) {
-					accountInfo += card.getType() + "\n";
+			if(list.isSelectionEmpty() == false) {
+
+				Account selectedAccount = getSelectedAccount();
+				
+				String accountInfo = "Account type\n" + selectedAccount.getType() + " Account\n\nCards:\n";
+				
+				if(selectedAccount.getCards().size() == 0)
+					accountInfo += "None\n";
+				else {
+					for(Card card : selectedAccount.getCards()) {
+						accountInfo += card.getType() + "\n";
+					}
 				}
+				
+				accountInfo += "\nBalance\n" + selectedAccount.getBalance();
+				
+				txtAccountInfo.setText(accountInfo);
 			}
-			
-			accountInfo += "\nBalance\n" + selectedAccount.getBalance();
-			
-			txtAccountInfo.setText(accountInfo);
 		}
 		
 	};
@@ -173,6 +172,14 @@ public class Accounts {
 		
 	};
 	
+	private ActionListener btnAddAccountListener = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			NewAccount window = new NewAccount(user);
+			frame.setVisible(false); 
+			frame.dispose(); 
+		}
+	};
+	
 	private Account getSelectedAccount() {
 		if(list.isSelectionEmpty() == false) {
 			for(Account account : user.getAccounts()) {
@@ -183,9 +190,11 @@ public class Accounts {
 		}
 		
 		return null;
-	}
-	
+	};
+
 	private void refreshListModel() {
+		listModel.clear();
+		txtAccountInfo.setText("");
 		for(Account account : user.getAccounts()) {
 			
 			listModel.addElement(Integer.toString(account.getAccountNumber()));

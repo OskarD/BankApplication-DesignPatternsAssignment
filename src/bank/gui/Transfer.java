@@ -41,6 +41,9 @@ public class Transfer {
 	private JButton 
 		btnTransfer;
 	
+	private ArrayList<Account> 
+		accounts = new ArrayList<>();
+	
 	/**
 	 * Create the application.
 	 */
@@ -70,8 +73,6 @@ public class Transfer {
 		
 		JLabel lblTargetAccount = new JLabel("Target account");
 		frame.getContentPane().add(lblTargetAccount, "cell 0 1");
-		
-		ArrayList<Account> accounts = new ArrayList<>();
 		
 		for(User user : Environment.getUsers()) {
 			accounts.addAll(user.getAccounts());
@@ -122,7 +123,7 @@ public class Transfer {
 	
 	private Account getSelectedAccount() {
 		if(list.isSelectionEmpty() == false) {
-			for(Account account : user.getAccounts()) {
+			for(Account account : accounts) {
 				if(account.getAccountNumber() == (Integer) list.getSelectedValue()) {
 					return account;
 				}

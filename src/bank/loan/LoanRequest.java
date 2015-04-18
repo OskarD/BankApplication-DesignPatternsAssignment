@@ -6,16 +6,16 @@ public class LoanRequest {
     private double amount;
     
     public LoanRequest(String desc, double amt) {
-    description = desc;
-    amount = amt;
+    	description = desc;
+    	amount = amt;
     }
     
     public double getAmount() {
-    return amount;
+    	return amount;
     }
     
     public String toString() {
-    return  description;
+    	return  description;
     }
 
 }

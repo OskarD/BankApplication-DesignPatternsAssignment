@@ -5,20 +5,16 @@ import bank.loan.LoanHandler;
 import bank.loan.LoanRequest;
 
 public class BranchManager extends LoanHandler {
-	
-    static double LIMIT = 8000;    
 
 	@Override
-	public boolean authorize(LoanRequest request) throws Exception {
-		 double amount = request.getAmount();
-	        if (amount <= LIMIT) {
-	            MessageHandler.print(" The Branch Manager has authorized the Loan Request of: " + request + amount);
-	            return true;
-	        } else {
-	        	
-	            return getNextHandler().authorize(request);
-	        }
-        }
-     }
+	public String getType() {
+		return "Branch Manager";
+	}
+
+	@Override
+	public double getLimit() {
+		return 8_000;
+	}
+ }
 
 

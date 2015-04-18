@@ -9,7 +9,7 @@ import bank.loan.LoanRequest;
 public class BranchPresidentTest {
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		BranchPresident bP = new BranchPresident();
 		LoanRequest request = new LoanRequest("test amount $", 9999);
 		assertTrue("this boolean is incorrect", bP.authorize(request));

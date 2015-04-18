@@ -1,23 +1,16 @@
 package bank.gui;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTextPane;
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JTextField;
-
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import bank.user.User;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Login {
 
@@ -70,10 +63,10 @@ public class Login {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User user = new User();
+				Environment.addUser(user);
 				user.setUsername(textField.getText());
 				Accounts window = new Accounts(user);
-				frmLogin.setVisible(false); 
-				frmLogin.dispose(); 
+				textField.setText("");
 			}
 		});
 		btnNewButton.setBounds(266, 102, 89, 23);

@@ -13,7 +13,7 @@ import bank.card.Card;
  *
  */
 public abstract class Account implements Comparable<Account> {
-	public static final double MIN_BALANCE = 2000.00;
+	public static final double MIN_BALANCE = 0.00;
 	public static final double OVERDRAW_LIMIT = -1000.00;
 
 	public static final double TRANS_FEE_NORMAL = 2.00;

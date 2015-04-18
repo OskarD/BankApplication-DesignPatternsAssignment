@@ -94,8 +94,20 @@ public class Accounts {
 		btnDeposit.addActionListener(btnDepositListener);
 		frame.getContentPane().add(btnDeposit, "cell 2 1");
 		
+		JButton btnTransfer = new JButton("Transfer");
+		btnTransfer.addActionListener(btnTransferListener);
+		frame.getContentPane().add(btnTransfer, "cell 2 1");
+		
 		frame.setVisible(true);
 	}
+	
+	private ActionListener btnTransferListener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if(list.isSelectionEmpty() == false) {
+				Transfer window = new Transfer(user, getSelectedAccount());
+			}
+		}
+	};
 	
 	private ActionListener btnDepositListener = new ActionListener() {
 
